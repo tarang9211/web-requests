@@ -1,0 +1,15 @@
+{
+  "name": "trumptweets",
+  "description": "Trump's Twitter Feed",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "oauth": "^0.9.15"
+  },
+  "devDependencies": {
+    "mocha": "^1.20.0",
+    "should": "^4.0.0",
+    "supertest": "^0.12.1"
+  },
+  "main": "main.js"
+}
