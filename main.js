@@ -26,8 +26,9 @@ oauth.get(
 });
 
 
-const server = http.createServer((response, request) => {
-
+const server = http.createServer((request, response) => {
+  response.write('Hello world');
+  response.end();
 });
 
 server.listen(port, host, () => {
