@@ -1,3 +1,6 @@
+const http = require("http");
+const port = 3000;
+const host = "localhost";
 var settings = require("./config.js");
 console.log("Starting application...");
 var OAuth = require('OAuth');
@@ -21,3 +24,12 @@ oauth.get(
     data = JSON.parse(data);
     console.log(JSON.stringify(data["statuses"], 0, 2));
 });
+
+
+const server = http.createServer((response, request) => {
+
+});
+
+server.listen(port, host, () => {
+  console.log(`Server running on http://${host}:${port}`);
+})
