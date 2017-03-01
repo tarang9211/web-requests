@@ -1,10 +1,9 @@
 const http = require("http");
 const port = 3000;
 const host = "localhost";
-var settings = require("./config.js");
-console.log("Starting application...");
-var OAuth = require('OAuth');
-var oauth = new OAuth.OAuth(
+const settings = require("./config.js");
+const OAuth = require('OAuth');
+const oauth = new OAuth.OAuth(
   'https://api.twitter.com/oauth/request_token',
   'https://api.twitter.com/oauth/access_token',
   settings.twitter.apikey,
@@ -14,6 +13,7 @@ var oauth = new OAuth.OAuth(
   'HMAC-SHA1'
 );
 
+let tweetData = '';
 oauth.get(
   'https://api.twitter.com/1.1/search/tweets.json?q=from%3APOTUS&result_type=recent&count=1',
 //  'https://api.twitter.com/1.1/trends/place.json?id=23424977',
@@ -21,13 +21,13 @@ oauth.get(
   settings.twitter.accesssecret,
   function (error, data, response){
     if (error) console.error(error);
-    data = JSON.parse(data);
-    console.log(JSON.stringify(data["statuses"], 0, 2));
+    tweetData = JSON.parse(data);
 });
 
 
 const server = http.createServer((request, response) => {
-  response.write('Hello world');
+  response.writeHead(200, {"Content-Type": "application/json"});
+  response.write(JSON.stringify(tweetData["statuses"]));
   response.end();
 });
 
