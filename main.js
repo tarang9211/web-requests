@@ -27,10 +27,8 @@ function makeRequest(cb) {
       if (error) {
         // reset tweetData
         tweetData = "";
-      }
-      else
-      {
-        var rawData = JSON.parse(data);
+      } else {
+        let rawData = JSON.parse(data);
         if (rawData["statuses"])
         {
           tweetData = map(rawData["statuses"],function(tweet) {
