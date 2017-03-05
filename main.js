@@ -14,13 +14,13 @@ const oauth = new OAuth.OAuth(
 
 // function to make request to twitter api using oauth
 let tweetData = "";
-if (settings.twitter.testData) {
-  tweetData = settings.twitter.testData;
-}
+// if (settings.twitter.testData) {
+//   tweetData = settings.twitter.testData;
+// }
 
 function makeRequest(cb) {
   oauth.get(
-    'https://api.twitter.com/1.1/search/tweets.json?q=from%3APOTUS%20OR%20from%3ArealDonaldTrump&result_type=recent&count=10',
+    'https://api.twitter.com/1.1/searchasassdas/tweets.json?q=from%3APOTUS%20OR%20from%3ArealDonaldTrump&result_type=recent&count=10',
     settings.twitter.accesstoken,
     settings.twitter.accesssecret,
     function (error, data, response){
@@ -50,11 +50,14 @@ const server = http.createServer((request, response) => {
       if (error) {
         // error occurred
         response.writeHead(404, {"Content-Type": "application/json"});
-        response.write(JSON.stringify(settings.twitter.errorMsg));
+        response.write(JSON.stringify({ error: settings.twitter.errorMsg }, null, 3));
+        response.end();
+        return;
+      } else {
+        response.writeHead(200, {"Content-Type": "application/json"});
+        response.write(JSON.stringify({ tweetData: tweetData}, null , 3));
+        response.end();
       }
-      response.writeHead(200, {"Content-Type": "application/json"});
-      response.write(JSON.stringify({ tweetData: tweetData}, null , 3));
-      response.end();
     });
   } else {
       response.writeHead(200, {"Content-Type": "application/json"});
