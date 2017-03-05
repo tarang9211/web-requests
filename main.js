@@ -1,5 +1,5 @@
 const http = require("http");
-var _ = require("underscore");
+const _ = require("lodash");
 const settings = require("./config.js");
 const OAuth = require('OAuth');
 const oauth = new OAuth.OAuth(
@@ -33,12 +33,12 @@ function makeRequest(cb) {
         var rawData = JSON.parse(data);
         if (rawData["statuses"])
         {
-          tweetData = _.map(rawData["statuses"],function(tweet) {
+          tweetData = map(rawData["statuses"],function(tweet) {
             return { text: tweet.text,created_at: tweet.created_at };
           });
         }
       }
-      if (cb) cb(error);        
+      if (cb) cb(error);
   });
 }
 
@@ -56,16 +56,15 @@ const server = http.createServer((request, response) => {
       }
       response.writeHead(200, {"Content-Type": "application/json"});
       response.write(JSON.stringify(tweetData));
-      response.end();      
+      response.end();
     });
   } else {
       response.writeHead(200, {"Content-Type": "application/json"});
-      response.write(JSON.stringify(tweetData));
-      response.end();      
+      response.write(JSON.stringify({ tweetData: tweetData}, null, 3));
+      response.end();
   }
 });
 
 server.listen(settings.http.port, settings.http.host, () => {
   console.log("Server running on http://" + settings.http.host + ":" + settings.http.port);
-})
-
+});
