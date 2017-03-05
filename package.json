@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "oauth": "^0.9.15"
+    "oauth": "^0.9.15",
+    "underscore": "1.8.3"
   },
   "devDependencies": {
     "mocha": "^1.20.0",
