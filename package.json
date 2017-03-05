@@ -3,7 +3,11 @@
   "description": "Trump's Twitter Feed",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "node main.js"
+  },
   "dependencies": {
+    "lodash": "^4.17.4",
     "oauth": "^0.9.15"
   },
   "devDependencies": {
