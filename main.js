@@ -31,7 +31,7 @@ function makeRequest(cb) {
         let rawData = JSON.parse(data);
         if (rawData["statuses"])
         {
-          tweetData = map(rawData["statuses"],function(tweet) {
+          tweetData = rawData["statuses"].map(function(tweet) {
             return { text: tweet.text,created_at: tweet.created_at };
           });
         }
@@ -53,7 +53,7 @@ const server = http.createServer((request, response) => {
         response.write(JSON.stringify(settings.twitter.errorMsg));
       }
       response.writeHead(200, {"Content-Type": "application/json"});
-      response.write(JSON.stringify(tweetData));
+      response.write(JSON.stringify({ tweetData: tweetData}, null , 3));
       response.end();
     });
   } else {
